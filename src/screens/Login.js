@@ -1,95 +1,66 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import colors from '../styles/colors'
+import baseStyles from '../styles/base'
+
 import {
+  StyleSheet,
   View,
   Text,
-  StyleSheet,
-  Image,
-  TouchableHighlight,
+  KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native'
 
-import Button from '../components/Button'
-import Icon from 'react-native-vector-icons/FontAwesome'
-
+import InputField from '../components/form/InputField'
+import NextArrowBtn from '../components/buttons/NextArrowBtn'
 
 export default class Login extends React.Component {
-  onFaceBookBtnPress = () => {
-    alert('facebook btn clicked')
+  onNextArrowBtnClick = () => {
+    alert('next arrow btn clicked.')
   }
-  onMoreOptionPress = () => {
-    alert('More options pressed')
-  }
-  render () {
+  render() {
     return (
-      <View style={ styles.wrapper }>
-        <View style={ styles.welcomeWrapper }>
-          <Image style={ styles.logo } source={ require('../img/airbnb-logo.png') } />
-          <Text style={ styles.welcomeText }>
-            Welcome to Airbnb.
-          </Text>
-          <View style={ styles.btns }>
-            <Button
-              text='continue with Facebook'
-              textColor={ colors.green01 }
-              backgroundColor={ colors.white }
-              handleOnPress={this.onFaceBookBtnPress}
-              icon={<Icon name='facebook' size={25} style={styles.facebookBtnStyle}/>}
+      <KeyboardAvoidingView style={styles.loginContainer}>
+        <View style={styles.scrollViewWrapper}>
+          <ScrollView style={styles.ScrollView}>
+            <Text style={baseStyles.screenTitle}>Log In</Text>
+            <InputField
+              labelText='EMAIL ADDRESS'
             />
-            <Button
-              text='create an account'
-              textColor={ colors.white }
-              backgroundColor={ colors.green01 }
-              handleOnPress={() => {}}
+            <InputField
+              labelText='PASSWORD'
+              type='password'
             />
-            <TouchableHighlight
-              style={styles.moreOptionWrapper}
-              onPress={this.onMoreOptionPress}
-            >
-              <Text style={styles.moreOptionText}>More options</Text>
-            </TouchableHighlight>
-          </View>
+          </ScrollView>
         </View>
-      </View>
+        <View style={styles.nextArrowBtn}>
+          <NextArrowBtn
+            onClick={this.onNextArrowBtnClick}
+          />
+        </View>
+      </KeyboardAvoidingView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
+  loginContainer: {
     flex: 1,
     backgroundColor: colors.green01,
   },
-  logo: {
-    width: 50,
-    height: 50,
-    marginTop: 50,
-    marginLeft: 20,
-  },
-  welcomeWrapper: {
+  scrollViewWrapper: {
     flex: 1,
-    marginTop: 30,
-    padding: 20,
+    marginTop: 70,
   },
-  welcomeText: {
-    fontSize: 30,
-    marginLeft: 20,
-    marginTop: 40,
-    color: colors.white,
-    marginBottom: 40,
-    fontWeight: '300',
+  ScrollView: {
+    flex: 1,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingTop: 30,
   },
-  btns: {
-    flex: 1
-  },
-  facebookBtnStyle: {
-    color: colors.green01,
-    position: 'relative',
-    left: 20
-  },
-  moreOptionWrapper: {
-    marginLeft: 20
-  },
-  moreOptionText: {
-    color: colors.white
+  nextArrowBtn: {
+    alignItems: 'flex-end',
+    marginRight: 20,
+    bottom: 20,
   }
 })
