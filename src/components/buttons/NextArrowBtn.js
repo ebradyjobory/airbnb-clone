@@ -14,14 +14,22 @@ export default class NextArrowBtn extends React.Component {
   }
 
   render() {
-    const { disabled } = this.props
+    const { disabled, onClick } = this.props
     const opacity = disabled ? 0.4 : 1
     return (
-      <TouchableHighlight style={[ styles.nextBtnWrapper, {opacity} ]} disabled={disabled} >
+      <TouchableHighlight
+        style={[ styles.nextBtnWrapper, { opacity } ]}
+        disabled={disabled}
+        onPress={onClick}
+      >
         <Icon name='angle-right' color={colors.green01} size={35}/>
       </TouchableHighlight>
     )
   }
+}
+
+NextArrowBtn.propTypes = {
+  onClick: PropTypes.func,
 }
 
 NextArrowBtn.defaultProps = {
@@ -33,8 +41,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     backgroundColor: colors.white,
   }
 })
