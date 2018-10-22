@@ -16,6 +16,7 @@ import {
 import InputField from '../components/form/InputField'
 import NextArrowBtn from '../components/buttons/NextArrowBtn'
 import Notification from '../components/Notification'
+import Loader from '../components/Loader'
 
 export default class Login extends React.Component {
   state = {
@@ -89,6 +90,11 @@ export default class Login extends React.Component {
             onPress={this.closeNotification}
           />
         </View>
+        <Loader
+          animationType='fade'
+          visible
+          text='Please wait..'
+        />
       </KeyboardAvoidingView>
     )
   }
