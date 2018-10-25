@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { ActionCreators } from '../redux/actions'
 import PropTypes from 'prop-types'
 import colors from '../styles/colors'
 import baseStyles from '../styles/base'
@@ -18,7 +21,7 @@ import NextArrowBtn from '../components/buttons/NextArrowBtn'
 import Notification from '../components/Notification'
 import Loader from '../components/Loader'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   state = {
     email: '',
     password: '',
@@ -27,7 +30,8 @@ export default class Login extends React.Component {
     passwordIsValid: false,
   }
   onNextArrowBtnClick = () => {
-    // alert('next arrow btn clicked.')
+    alert('next arrow btn clicked.')
+
     // this.setState({ formIsValid: !this.state.formIsValid })
   }
   closeNotification = () => {
@@ -53,7 +57,10 @@ export default class Login extends React.Component {
   }
 
   render() {
-    const { formIsValid } = this.state
+    console.log('???', this.props)
+    const { fetching } = this.props
+    // const { formIsValid } = this.state
+    const formIsValid = true
     const backgroundColor = formIsValid ? colors.green01 : colors.darkOrange
     return (
       <KeyboardAvoidingView
@@ -90,11 +97,11 @@ export default class Login extends React.Component {
             onPress={this.closeNotification}
           />
         </View>
-        <Loader
+        { fetching && <Loader
           animationType='fade'
           visible
           text='Please wait..'
-        />
+        /> }
       </KeyboardAvoidingView>
     )
   }
@@ -120,3 +127,16 @@ const styles = StyleSheet.create({
     bottom: 20,
   },
 })
+
+const mapStateToProps = state => ({
+  loggedInStatus: state.loggedInStatus,
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(ActionCreators, dispatch)
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login)
